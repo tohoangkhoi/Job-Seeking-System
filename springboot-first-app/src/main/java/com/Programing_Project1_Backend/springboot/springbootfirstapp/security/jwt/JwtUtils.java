@@ -28,7 +28,7 @@ public class JwtUtils {
 	public String generateJwtToken(Authentication authentication) {
 
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-		
+
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("id", Long.toString(userPrincipal.getId()));
 		claims.put("username", userPrincipal.getUsername());
@@ -44,7 +44,7 @@ public class JwtUtils {
 	}
 
 	public String getUserNameFromJwtToken(String token) {
-		Claims claims =  Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+		Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
 		String username = (String) claims.get("username");
 		return username;
 	}

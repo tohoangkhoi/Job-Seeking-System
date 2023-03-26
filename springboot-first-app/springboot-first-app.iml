@@ -24,6 +24,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" />
+          <factory-entry name="springboot-first-app" value="020875e9-88ef-45f8-b834-2c291b09c379" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

@@ -1,4 +1,5 @@
 package com.Programing_Project1_Backend.springboot.springbootfirstapp.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
@@ -9,38 +10,37 @@ import javax.persistence.*;
  * details of user registrations 
  */
 @Entity
-@Table(	name = "users") 
+@Table(name = "users")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="FirstName")
+	@Column(name = "FirstName")
 	private String firstname;
 
-	@Column(name="UserName", unique = true)
+	@Column(name = "UserName", unique = true)
 	private String username;
 
-	@Column(name="LastName")
+	@Column(name = "LastName")
 	private String lastname;
 
-	@Column(name="Email", unique = true)
+	@Column(name = "Email", unique = true)
 	private String email;
 
-	@Column(name="Address")
+	@Column(name = "Address")
 	private String address;
 
-	@Column(name="Phone")
+	@Column(name = "Phone")
 	private String phone;
 
 	private String userProfileImageLink;
-	@Column(name="UserType")
+	@Column(name = "UserType")
 	private String user_type;
 
-	@Column(name="Password")
+	@Column(name = "Password")
 	@JsonIgnore
 	private String password;
-
 
 	private boolean status;
 
@@ -48,35 +48,32 @@ public class User {
 
 	Background background;
 
-	@OneToMany(cascade= CascadeType.ALL, fetch= FetchType.EAGER, mappedBy ="employer", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "employer", orphanRemoval = true)
 	@JsonIgnore
-	private List<JobPost>jobPosts = new ArrayList<JobPost>();
+	private List<JobPost> jobPosts = new ArrayList<JobPost>();
 
-	@OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY, mappedBy ="candidate", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "candidate", orphanRemoval = true)
 	@JsonIgnore
-	private List<Application>applications = new ArrayList<Application>();
-
+	private List<Application> applications = new ArrayList<Application>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "user_roles",
-	joinColumns = @JoinColumn(name = "user_id"),
-	inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
 	public User() {
 	}
 
 	public User(String username, String firstname, String lastname, String email, String address, String phone,
-				String password, String user_type) {
+			String password, String user_type) {
 		super();
-		this.username=username;
+		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.address = address;
 		this.phone = phone;
 		this.password = password;
-		this.user_type=user_type;
+		this.user_type = user_type;
 		this.status = false;
 	}
 
@@ -119,8 +116,6 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public String getUser_type() {
 		return user_type;

@@ -1,6 +1,6 @@
 package com.Programing_Project1_Backend.springboot.springbootfirstapp.secutiry;
 
-import org.springframework.beans.factory.annotation.Autowired;  
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.Programing_Project1_Backend.springboot.springbootfirstapp.security.jwt.AuthEntryPointJwt;
 import com.Programing_Project1_Backend.springboot.springbootfirstapp.security.jwt.AuthTokenFilter;
 import com.Programing_Project1_Backend.springboot.springbootfirstapp.security.services.UserDetailsServiceImpl;
+
 /*
  * We define the access to http pages.
  * A h2-console had permitAll access to reach
@@ -62,20 +63,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable();
 
 		http.cors().and().csrf().disable()
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests()
-			.antMatchers("/api/job/user/**").hasAnyRole("ADMIN", "EMPLOYER", "JOB_SEEKER")
-			.antMatchers("/api/job/employer/postjob/**").hasRole("EMPLOYER")
-			.antMatchers("/notification/**", "/api/auth/**", "/api/test/**", "/app/**").permitAll()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.authorizeRequests()
+				.antMatchers("/api/job/user/**").hasAnyRole("ADMIN", "EMPLOYER", "JOB_SEEKER")
+				.antMatchers("/api/job/employer/postjob/**").hasRole("EMPLOYER")
+				.antMatchers("/notification/**", "/api/auth/**", "/api/test/**", "/app/**").permitAll()
 
-			.anyRequest().authenticated();
-
-
+				.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
-
 
 }
